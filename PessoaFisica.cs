@@ -4,6 +4,7 @@ namespace senai_cadastro
 {
     public class PessoaFisica : Pessoa
     {
+        
         public string cpf { get; set; }
 
         public DateTime dataNascimento { get; set; }
@@ -22,6 +23,8 @@ namespace senai_cadastro
                 return false;
             }
 
+
         }
+        
     }
 }
