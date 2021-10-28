@@ -1,3 +1,8 @@
+using senai_cadastro;
+using System;
+using System.Globalization;
+using senaiCadastro.Enums;
+
 namespace senai_cadastro
 {
     public class Endereco
@@ -8,14 +13,14 @@ namespace senai_cadastro
 
         private string Complemento { get; set; }
 
-        private bool EnderecoComercial { get; set; }
+        private TipoEndereco TipoEndereco { get; set; }
 
-        public Endereco(string logradouro, int numero, string complemento, bool enderecoComercial)
+        public Endereco(string logradouro, int numero, string complemento, TipoEndereco tipoEndereco)
         {
             Logradouro = logradouro;
             Numero = numero;
             Complemento = complemento;
-            EnderecoComercial = enderecoComercial;
+            TipoEndereco = tipoEndereco;
         }
 
         public override string ToString()

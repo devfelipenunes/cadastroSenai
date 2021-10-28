@@ -5,10 +5,17 @@ namespace senai_cadastro
     public class PessoaFisica : Pessoa
     {
         
-        public string cpf { get; set; }
+        private string Nome { get; set; }
+        private string Cpf { get; set; }
 
-        public DateTime dataNascimento { get; set; }
+        private DateTime DataNascimento { get; set; }
 
+        public PessoaFisica(string nome, string cpf, DateTime dataNascimento)
+        {
+            Nome = nome;
+            Cpf = cpf;
+            DataNascimento = dataNascimento;
+        }
         public override void pagarImposto(float salario){}
 
         public bool ValidarDataNascimento(DateTime dataNasc){
@@ -25,6 +32,14 @@ namespace senai_cadastro
 
 
         }
-        
+
+        public override string ToString()
+        {
+            return $"Nome: {Nome} " +
+                   $"|CPF: {Cpf} " +
+                   $"|Data de Nascimento: {DataNascimento} " +
+                   $"|Pessoa Fisica";
+                
+        }
     }
 }

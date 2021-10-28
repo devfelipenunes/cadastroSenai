@@ -2,9 +2,15 @@ namespace senai_cadastro
 {
     public class PessoaJuridica : Pessoa
     {
-        public string cnpj { get; set; }
+        private string Cnpj { get; set; }
 
-        public string RazaoSocial { get; set; }
+        private string RazaoSocial { get; set; }
+
+        public PessoaJuridica(string cnpj, string razaoSocial)
+        {
+            Cnpj = cnpj;
+            RazaoSocial = razaoSocial;
+        }
 
         public override void pagarImposto(float salario){}
     
