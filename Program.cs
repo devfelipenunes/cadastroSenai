@@ -1,11 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 
 namespace senai_cadastro
 {
     class Program
     {
+
+        static List<Endereco> enderecos = new List<Endereco>();
         static void Main(string[] args)
         {
+
+
 
             /* PessoaFisica pf = new PessoaFisica();
             Endereco end = new Endereco();
@@ -18,7 +24,7 @@ namespace senai_cadastro
                 Console.WriteLine($"Cadastro Reprovado!");
             }
             */
-
+            /*
             PessoaJuridica pj = new PessoaJuridica();
             PessoaJuridica novaPj = new PessoaJuridica();
 
@@ -40,7 +46,9 @@ namespace senai_cadastro
             } else {
                 Console.WriteLine($"CNPJ Inválido");
             }
-
+            */
         }
+
+
     }
 }

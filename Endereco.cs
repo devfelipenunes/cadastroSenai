@@ -2,12 +2,27 @@ namespace senai_cadastro
 {
     public class Endereco
     {
-        public string logradouro { get; set; }
+        private string Logradouro { get; set; }
 
-        public int numero { get; set; }
+        private int Numero { get; set; }
 
-        public string complemento { get; set; }
+        private string Complemento { get; set; }
 
-        public bool enderecoComercial { get; set; }
+        private bool EnderecoComercial { get; set; }
+
+        public Endereco(string logradouro, int numero, string complemento, bool enderecoComercial)
+        {
+            Logradouro = logradouro;
+            Numero = numero;
+            Complemento = complemento;
+            EnderecoComercial = enderecoComercial;
+        }
+
+        public override string ToString()
+        {
+            return $"Logradouro: {Logradouro} " +
+                   $"|Numero: {Numero} " +
+                   $"|Complemento: {Complemento}" ;
+        }
     }
 }
