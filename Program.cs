@@ -123,6 +123,7 @@ namespace senai_cadastro
         {
             Console.Write("Informe o CNPJ: ");
             string cnpj = Console.ReadLine();
+            ValidarCNPJ(cnpj);
 
             Console.WriteLine("Informe a Razão Social: ");
             string razaoSocial = Console.ReadLine();
@@ -171,8 +172,7 @@ namespace senai_cadastro
             Console.WriteLine();
         }
 
-        //FUNÇÕES
-
+        //Valida
         public static void ValidarCPF(string cpf)
         {
             if(cpf.Length != 11)
@@ -181,6 +181,23 @@ namespace senai_cadastro
                 InserirPessoaFisica();
             }
         }
+        public static void ValidarIdade(int validarIdade)
+        {
+            if(validarIdade < 18)
+            {
+                AdicionarDot("Idade insuficiente");
+                InserirPessoaFisica();   
+            }
+        }
+
+        public static void ValidarCNPJ(string cnpj){
+            if(cnpj.Length == 14 && cnpj.Substring(cnpj.Length - 4) == "0001"){
+                return;
+            }
+            AdicionarDot("CNPJ INVALIDO");
+            InserirPessoaJuridica();
+        }
+        //FUNÇÕES
         private static string ObterOpcaoUsuario()
         {
             AdicionarDot("Bem Vindo ao nosso sistema de cadastro.");
@@ -195,17 +212,7 @@ namespace senai_cadastro
             string opcaoUsuario = Console.ReadLine().ToUpper();
             Console.WriteLine();
             return opcaoUsuario;
-            
         }
-
-        public static void ValidarIdade(int validarIdade)
-        {
-            if(validarIdade < 18)
-            {
-                AdicionarDot("Idade insuficiente");
-                InserirPessoaFisica();   
-            }
-        }   
         private static void AdicionarDot(string textoCarregamento)
         {
             Console.ResetColor();
@@ -214,7 +221,6 @@ namespace senai_cadastro
             Thread.Sleep(1000);
             Console.ResetColor();
         }
-
     }
 }
 
