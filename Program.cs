@@ -4,83 +4,53 @@ using System.Globalization;
 using System.Threading;
 using senai_cadastro;
 using senaiCadastro.Enums;
-
 namespace senai_cadastro
 {
     class Program
     {
-
         static List<Pessoa> pessoas = new List<Pessoa>();
         static List<Endereco> enderecos = new List<Endereco>();
         static void Main(string[] args)
         {
-
             string opcaoUsuario = ObterOpcaoUsuario();
-
+            
             while (opcaoUsuario != "X")
             {
                 switch (opcaoUsuario)
                 {
                     case"1":
-                        InserirEndereco();
+                        Inserir();
                         break;
                     case"2":
-                        ListarEnderecos();
+                        Listar();
                         break;
-                    case"3":
-                        InserirPessoa();
+                    case"C":
+                        Console.Clear();
                         break;
-                    case"4":
-                        ListarPessoas();
-                        break;
-
+                
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
                 opcaoUsuario = ObterOpcaoUsuario();
             }
-            
             AdicionarDot("Sessão finalizada");
             Console.ReadLine();
-
-            /* PessoaFisica pf = new PessoaFisica();
-            Endereco end = new Endereco();
-
-            bool idadeValida = pf.ValidarDataNascimento(pf.dataNascimento);
-            
-            if (idadeValida == true){
-                Console.WriteLine($"Cadastro Aprovado!");
-            } else {
-                Console.WriteLine($"Cadastro Reprovado!");
-            }
-            */
-            /*
-            PessoaJuridica pj = new PessoaJuridica();
-            PessoaJuridica novaPj = new PessoaJuridica();
-
-            Endereco end = new Endereco();
-
-            end.logradouro = "Rua X";
-            end.numero = 100;
-            end.complemento = "Proximo ao Senai";
-            end.enderecoComercial = true;
-
-            novaPj.endereco = end;
-            novaPj.cnpj = "12345678900001";
-            novaPj.RazaoSocial = "Pessoa Juridica";
-
-
-            if(pj.ValidarCNPJ(novaPj.cnpj)){
-                Console.WriteLine("CNPJ VÁLIDO");
-                
-            } else {
-                Console.WriteLine($"CNPJ Inválido");
-            }
-            */
         }
-
         
         //Listas:
+        private static void Listar()
+        {
+            Console.WriteLine($"1 - Listar pessoas");
+            Console.WriteLine($"2 - Listar endereços");
+            string escolhaInserir = Console.ReadLine();
+            if(escolhaInserir == "1")
+            {
+                ListarPessoas();
+                return;
+            } else {
+                ListarEnderecos();
+            }
+        }
         private static void ListarEnderecos()
         {
             if(enderecos.Count == 0)
@@ -120,9 +90,21 @@ namespace senai_cadastro
         }
 
         //Inserir:
+        public static void Inserir()
+        {
+            Console.WriteLine($"1 - Inserir pessoa");
+            Console.WriteLine($"2 - Inserir endereço");
+            string escolhaInserir = Console.ReadLine();
+            if(escolhaInserir == "1")
+            {
+                InserirPessoa();
+                return;
+            } else {
+                InserirEndereco();
+            }
+        }
         private static void InserirPessoa()
         {
-            
             Console.WriteLine("Qual tipo de registro: [1:Pessoa Fisica | 2:Pessoa Juridica]");
             string tipoRegistro = Console.ReadLine();
             
@@ -135,7 +117,6 @@ namespace senai_cadastro
                 InserirPessoaJuridica();
                 return;
             }
-
         }
 
         private static void InserirPessoaJuridica()
@@ -149,7 +130,6 @@ namespace senai_cadastro
             pessoas.Add(new PessoaJuridica(cnpj, razaoSocial));
             AdicionarDot("Pessoa registrada com sucesso!");
             Console.WriteLine();
-
         }
 
         private static void InserirPessoaFisica()
@@ -170,7 +150,6 @@ namespace senai_cadastro
             pessoas.Add(new PessoaFisica(nome, cpf, dataNascimento));
             AdicionarDot("Pessoa registrada com sucesso!");
             Console.WriteLine();
-
         }
         private static void InserirEndereco()
         {
@@ -196,10 +175,8 @@ namespace senai_cadastro
             AdicionarDot("Bem Vindo ao nosso sistema de cadastro.");
             AdicionarDot("Escolha uma das opções abaixo.");
             Console.WriteLine();
-            Console.WriteLine($"1 - Inserir novo endereço");
-            Console.WriteLine($"2 - Listar endereços");
-            Console.WriteLine($"3 - Inserir nova pessoa");
-            Console.WriteLine($"4 - Listar pessoas");
+            Console.WriteLine($"1 - Inserir");
+            Console.WriteLine($"2 - Listar");
             Console.WriteLine($"C - Limpar tela");
             Console.WriteLine($"X - Sair");
             Console.WriteLine($"");
@@ -212,28 +189,57 @@ namespace senai_cadastro
 
         public static void ValidarIdade(int validarIdade)
         {
-
             if(validarIdade < 18)
             {
                 AdicionarDot("Idade insuficiente");
                 InserirPessoa();   
             }
-
-        }        private static void AdicionarDot(string textoCarregamento)
+        }   
+        private static void AdicionarDot(string textoCarregamento)
         {
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(textoCarregamento);
             Thread.Sleep(1000);
-            /*
-            for (var i =0; i < 10; i++)
-            {
-                Console.Write($".");
-                Thread.Sleep(100);
-            }
-            */
             Console.ResetColor();
         }
 
     }
 }
+
+            //CODIGOS DA AULA
+
+            /* PessoaFisica pf = new PessoaFisica();
+            Endereco end = new Endereco();
+
+            bool idadeValida = pf.ValidarDataNascimento(pf.dataNascimento);
+            
+            if (idadeValida == true){
+                Console.WriteLine($"Cadastro Aprovado!");
+            } else {
+                Console.WriteLine($"Cadastro Reprovado!");
+            }
+            */
+            /*
+            PessoaJuridica pj = new PessoaJuridica();
+            PessoaJuridica novaPj = new PessoaJuridica();
+
+            Endereco end = new Endereco();
+
+            end.logradouro = "Rua X";
+            end.numero = 100;
+            end.complemento = "Proximo ao Senai";
+            end.enderecoComercial = true;
+
+            novaPj.endereco = end;
+            novaPj.cnpj = "12345678900001";
+            novaPj.RazaoSocial = "Pessoa Juridica";
+
+
+            if(pj.ValidarCNPJ(novaPj.cnpj)){
+                Console.WriteLine("CNPJ VÁLIDO");
+                
+            } else {
+                Console.WriteLine($"CNPJ Inválido");
+            }
+            */
