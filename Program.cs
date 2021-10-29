@@ -79,6 +79,8 @@ namespace senai_cadastro
             */
         }
 
+        
+        //Listas:
         private static void ListarEnderecos()
         {
             if(enderecos.Count == 0)
@@ -117,8 +119,10 @@ namespace senai_cadastro
             Console.WriteLine();            
         }
 
+        //Inserir:
         private static void InserirPessoa()
         {
+            
             Console.WriteLine("Qual tipo de registro: [1:Pessoa Fisica | 2:Pessoa Juridica]");
             string tipoRegistro = Console.ReadLine();
             
@@ -152,6 +156,10 @@ namespace senai_cadastro
         {
             Console.Write("Informe o nome: ");
             string nome = Console.ReadLine();
+
+            Console.Write("Informe a sua idade: ");
+            int idade = int.Parse(Console.ReadLine());
+            ValidarIdade(idade);
 
             Console.Write("Informe a data de nascimento: ");
             DateTime dataNascimento = DateTime.Parse(Console.ReadLine());
@@ -202,19 +210,17 @@ namespace senai_cadastro
             return opcaoUsuario;
             
         }
-        public bool ValidarDataNascimento(DateTime dataNasc){
-            
-            DateTime dataAtual = DateTime.Today;
 
-            double anos = (dataAtual - dataNasc).TotalDays / 365;
+        public static void ValidarIdade(int validarIdade)
+        {
 
-            if ( anos >= 18 ){
-                return true;
-            } else {
-                return false;
+            if(validarIdade < 18)
+            {
+                AdicionarDot("Idade insuficiente");
+                InserirPessoa();   
             }
-        }
-        private static void AdicionarDot(string textoCarregamento)
+
+        }        private static void AdicionarDot(string textoCarregamento)
         {
             Console.ResetColor();
             Console.ForegroundColor = ConsoleColor.Red;
