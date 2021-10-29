@@ -3,7 +3,7 @@
 
 ## Fluxograma
 
-<span align="center"> Precisando de ajuda! </span>
+<p font-color="red"> Precisando de ajuda! <p>
 [BREVE]
 <p align="center"> Dicas para fluxograma </p>
 
@@ -16,7 +16,7 @@
 
 * Menu... Viciei em fazer menu, to chamando funções dentro de funções, e assim tentando colocar mais funções dentro de funções.
 
-#DICAS
+# DICAS
 
 
 -Para executar um simples "dotnet run".

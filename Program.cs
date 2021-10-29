@@ -146,6 +146,7 @@ namespace senai_cadastro
 
             Console.Write("Informe o CPF: ");
             string cpf = Console.ReadLine();
+            ValidarCPF(cpf);
 
             pessoas.Add(new PessoaFisica(nome, cpf, dataNascimento));
             AdicionarDot("Pessoa registrada com sucesso!");
@@ -170,6 +171,16 @@ namespace senai_cadastro
             Console.WriteLine();
         }
 
+        //FUNÇÕES
+
+        public static void ValidarCPF(string cpf)
+        {
+            if(cpf.Length != 11)
+            {
+                AdicionarDot("CPF INVALIDO");
+                InserirPessoaFisica();
+            }
+        }
         private static string ObterOpcaoUsuario()
         {
             AdicionarDot("Bem Vindo ao nosso sistema de cadastro.");
@@ -192,7 +203,7 @@ namespace senai_cadastro
             if(validarIdade < 18)
             {
                 AdicionarDot("Idade insuficiente");
-                InserirPessoa();   
+                InserirPessoaFisica();   
             }
         }   
         private static void AdicionarDot(string textoCarregamento)
