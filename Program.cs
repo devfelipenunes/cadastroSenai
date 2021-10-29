@@ -189,7 +189,6 @@ namespace senai_cadastro
             enderecos.Add(new Endereco(logradouro, numero, complemento, tipoEndereco));
             AdicionarDot("Endereço registrado com sucesso!");
             Console.WriteLine();
-
         }
 
         private static string ObterOpcaoUsuario()
