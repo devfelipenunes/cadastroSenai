@@ -1,23 +1,20 @@
 using System;
+using senaiCadastro;
 
 namespace senai_cadastro
 {
     public class PessoaFisica : Pessoa
     {
-        
-        private string Nome { get; set; }
-        private string Cpf { get; set; }
-
+        public string Cpf { get; set; }
         private DateTime DataNascimento { get; set; }
-
-        public PessoaFisica(string nome, string cpf, DateTime dataNascimento)
+        public PessoaFisica()
         {
+            /*
             Nome = nome;
             Cpf = cpf;
             DataNascimento = dataNascimento;
+            */
         }
-        public override void pagarImposto(float salario){}
-
         public bool ValidarDataNascimento(DateTime dataNasc){
             
             DateTime dataAtual = DateTime.Today;

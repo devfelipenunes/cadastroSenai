@@ -1,11 +1,14 @@
 namespace senai_cadastro
 {
-    public abstract class Pessoa
+    public class Pessoa
     {
-        public string nome { get; set; }
-    
-        public Endereco endereco{ get; set; }
+        public string Nome { get; set; }
+        public int Idade { get; set; }
+        public Endereco Endereco{ get; set; }
 
-        public abstract void pagarImposto(float salario);
+        public Pessoa()
+        {
+
+        }
     }
 }
