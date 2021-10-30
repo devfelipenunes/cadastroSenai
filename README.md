@@ -1,10 +1,9 @@
 <h1 align="center">Projeto Senai Cadastro</h1>
-<p>“Você pode criar qualquer coisa: basta escrever” – C. S. Lewis</p>
+<p align="center">“Você pode criar qualquer coisa: basta escrever” – C. S. Lewis</p>
 
 ## Fluxograma
 
-<p font-color="red"> Precisando de ajuda! <p>
-[BREVE]
+<p align="center"> Precisando de ajuda! <p>
 <p align="center"> Dicas para fluxograma </p>
 
 ## Atualizações (Um pouco sobre o projeto)
