@@ -42,8 +42,8 @@ namespace senaiCadastro
             AdicionarDot("Sessão finalizada");
             Console.ReadLine();
         }
-          //Listas:
-        private static void Listar()
+        //Listas:
+        private void Listar()
         {
             Console.WriteLine($"1 - Listar pessoas");
             Console.WriteLine($"2 - Listar endereços");
@@ -74,23 +74,50 @@ namespace senaiCadastro
             }
             Console.WriteLine();
         }
-        private static void ListarPessoas()
+        public void ListarPessoas()
         {
             if(pessoas.Count == 0)
             {
-                Console.WriteLine("Nenhuma pessoa cadastrada!");
-                return;
+                AdicionarDot("----Nenhuma pessoa cadastrada!------");
+                AdicionarDot("-----[1]Adicionar----[2]Voltar------");
+                string opcoes1 = Ler().ToUpper();
+                switch(opcoes1)
+                {
+                    case"1":
+                        InserirPessoa();
+                        break;
+                    case"2":
+                        Executar();
+                        break;
+                
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }    
             }
 
             int i = 0;
             AdicionarDot("---Lista de pessoas cadastrados---");
-            Console.WriteLine();
+            AdicionarDot("-----[1]Excluir----[2]Voltar------");
+
             foreach(Pessoa pessoa in pessoas)
             {
                 Console.WriteLine($"|Id: {i} | " + pessoa);
                 i++;
             }
-            Console.WriteLine();            
+            string opcoes2 = Ler().ToUpper();
+            switch(opcoes2)
+            {
+                case"1":
+                    ExcluirPessoa();
+                    break;
+                case"2":
+                    Executar();
+                    break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }                       
+
         }
         public Pessoa PesquisarPessoa(string fname)
         {
@@ -117,7 +144,7 @@ namespace senaiCadastro
                 //InserirEndereco();
             }
         }
-        private void InserirPessoa()
+        public void InserirPessoa()
         {
             Console.WriteLine("Qual tipo de registro: [1:Pessoa Fisica | 2:Pessoa Juridica]");
             string tipoRegistro = Console.ReadLine();
@@ -125,14 +152,13 @@ namespace senaiCadastro
             if(tipoRegistro == "1"){
                 AdicionarDot("Pessoa Fisica Selecionada!");
                 InserirPessoaFisica();
-                return;
             } else {
                 AdicionarDot("Pessoa Juridica Selecionada!");
                 InserirPessoaJuridica();
                 return;
             }
         }
-        private static void InserirPessoaJuridica()
+        private void InserirPessoaJuridica()
         {
             Console.Write("Informe o CNPJ: ");
             string cnpj = Console.ReadLine();
@@ -158,29 +184,39 @@ namespace senaiCadastro
             pessoaFisica.Idade = int.Parse(Ler());
             ValidarIdade(pessoaFisica.Idade);
 
+
+            Escrever("Informe o CPF: ");
+            pessoaFisica.Cpf = Ler();
+            ValidarCPF(pessoaFisica.Cpf);
+            
             pessoas.Add(pessoaFisica);
             AdicionarDot("Pessoa registrada com sucesso!");
-
             Limpar();
-            Escrever("Gostaria de cadastrar outra pessoa? [s/n]");
-            var cadastrarNovamente = Ler().ToUpper();
-            if(cadastrarNovamente == "s")
+            
+            AdicionarDot("--[1]Cadastrar outra pessoa--");
+            AdicionarDot("---[2]Ver lista de pessoas---");
+            AdicionarDot("-----------[3]Voltar---------");
+            Escrever("");
+
+            string opcaoPessoaFisica = Ler().ToUpper();
+            switch(opcaoPessoaFisica)
             {
-                InserirPessoaFisica();
+                case"1":
+                    InserirPessoa();
+                    break;
+                case"2":
+                    ListarPessoas();
+                    break;
+                case"3":
+                    Executar();
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-            /*
-
-
-
+            /* To tentando mais né...
             Console.Write("Informe a data de nascimento: ");
             DateTime dataNascimento = DateTime.Parse(Console.ReadLine());
-
-            Console.Write("Informe o CPF: ");
-            string cpf = Console.ReadLine();
-            ValidarCPF(cpf);
-
-            pessoas.Add(new PessoaFisica());
-            Console.WriteLine();
             */
         }
        /*
@@ -216,7 +252,6 @@ namespace senaiCadastro
                 pessoas.Remove(pessoa);
             }
         }
-
         //Valida
         public void ValidarCPF(string cpf)
         {
@@ -235,7 +270,7 @@ namespace senaiCadastro
             }
         }
 
-        public static void ValidarCNPJ(string cnpj){
+        public void ValidarCNPJ(string cnpj){
             if(cnpj.Length == 14 && cnpj.Substring(cnpj.Length - 4) == "0001"){
                 return;
             }
@@ -243,7 +278,7 @@ namespace senaiCadastro
             InserirPessoaJuridica();
         }
         //FUNÇÕES
-        private static string ObterOpcaoUsuario()
+        private string ObterOpcaoUsuario()
         {
             AdicionarDot("Bem Vindo ao nosso sistema de cadastro.");
             AdicionarDot("Escolha uma das opções abaixo.");
