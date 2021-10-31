@@ -22,6 +22,14 @@
 * Organizando a casa... Estou a procura de alguma forma de melhorar a organização desse projeto, ando aprendendo muito sobre, tanto que vicei em funções tanto que preciso refatorar para implementar as novas.
 
 * Tudo que eu queria... Simplementes criar uma forma de classificar as pessoas pelo nome ou outras formas, mas meu codigo me levou para outras rotas.
+
+#### TIVE QUE MUDAR
+
+* Algumas coisas começaram a fazer sentido, enquanto outras nem sei se tinham.
+
+* Tentando fazer algumas novas implementações, não sabia que codar gastaria tanto tempo assim.
+
+* Gostando bastante do resultado, refatorar é a meta.
 # DICAS
 
 
