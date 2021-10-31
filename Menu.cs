@@ -11,7 +11,7 @@ namespace senaiCadastro
 
         public void Escrever(string msg)
         {
-            Console.Write(msg);
+            Console.WriteLine(msg);
         }
     
         public void Limpar()

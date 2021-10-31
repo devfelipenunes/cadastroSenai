@@ -7,14 +7,7 @@ namespace senai_cadastro
     {
         public string Cpf { get; set; }
         private DateTime DataNascimento { get; set; }
-        public PessoaFisica()
-        {
-            /*
-            Nome = nome;
-            Cpf = cpf;
-            DataNascimento = dataNascimento;
-            */
-        }
+        public PessoaFisica(){}
         public bool ValidarDataNascimento(DateTime dataNasc){
             
             DateTime dataAtual = DateTime.Today;

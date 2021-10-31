@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using senai_cadastro;
 using System.Threading;
+using senaiCadastro.Enums;
 
 namespace senaiCadastro
 {
@@ -45,9 +46,9 @@ namespace senaiCadastro
         //Listas:
         private void Listar()
         {
-            Console.WriteLine($"1 - Listar pessoas");
-            Console.WriteLine($"2 - Listar endereços");
-            string escolhaInserir = Console.ReadLine();
+            Escrever($"1 - Listar pessoas");
+            Escrever($"2 - Listar endereços");
+            string escolhaInserir = Ler();
             if(escolhaInserir == "1")
             {
                 ListarPessoas();
@@ -56,23 +57,29 @@ namespace senaiCadastro
                 ListarEnderecos();
             }
         }
-        private static void ListarEnderecos()
+        private void ListarEnderecos()
         {
             if(enderecos.Count == 0)
             {
-                Console.WriteLine("Nenhum endereço cadastrado!");
-                return;
+                Escrever("--Nenhum endereço cadastrado!--");
+                AdicionarDot("-----[1]Adicionar----[2]Voltar------");
+
+                string escolha1 = Ler().ToUpper();
+                switch(escolha1)
+                {
+                    case"1":
+                        InserirEndereco();
+                        break;
+                    case"2":
+                        Executar();
+                        break;
+                    
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
-            int i = 0;
-            AdicionarDot("---Lista de enderecos cadastrados---");
-            Console.WriteLine();
-            foreach(Endereco endereco in enderecos)
-            {
-                Console.WriteLine($"|Id: {i} | " + endereco);
-                i++;
-            }
-            Console.WriteLine();
+            MostrarEnderecos();
         }
         public void ListarPessoas()
         {
@@ -95,29 +102,35 @@ namespace senaiCadastro
                 }    
             }
 
-            int i = 0;
             AdicionarDot("---Lista de pessoas cadastrados---");
             AdicionarDot("-----[1]Excluir----[2]Voltar------");
 
+            MostrarPessoas();
+        }
+        public void MostrarPessoas()
+        {
+            int i = 0;
             foreach(Pessoa pessoa in pessoas)
             {
                 Console.WriteLine($"|Id: {i} | " + pessoa);
                 i++;
             }
-            string opcoes2 = Ler().ToUpper();
-            switch(opcoes2)
-            {
-                case"1":
-                    ExcluirPessoa();
-                    break;
-                case"2":
-                    Executar();
-                    break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }                       
+            
+            string escolhaMenu = Ler();
+            MenuMostrarPessoas(escolhaMenu);
+        }
 
+        public void MostrarEnderecos()
+        {
+            int i = 0;
+            AdicionarDot("---Lista de enderecos cadastrados---");
+            Console.WriteLine();
+            foreach(Endereco endereco in enderecos)
+            {
+                Escrever($"|Id: {i} | " + endereco);
+                i++;
+            }
+            Console.WriteLine();
         }
         public Pessoa PesquisarPessoa(string fname)
         {
@@ -132,22 +145,24 @@ namespace senaiCadastro
         }
         //Inserir:
         public void Inserir()
-        {
-            Console.WriteLine($"1 - Inserir pessoa");
-            Console.WriteLine($"2 - Inserir endereço");
-            string escolhaInserir = Console.ReadLine();
+        {   
+            Limpar();
+            Escrever($"1 - Inserir Pessoa");
+            Escrever($"2 - Inserir Endereço");
+            string escolhaInserir = Ler();
             if(escolhaInserir == "1")
             {
                 InserirPessoa();
                 return;
             } else {
-                //InserirEndereco();
+                InserirEndereco();
             }
         }
         public void InserirPessoa()
         {
-            Console.WriteLine("Qual tipo de registro: [1:Pessoa Fisica | 2:Pessoa Juridica]");
-            string tipoRegistro = Console.ReadLine();
+            Limpar();
+            Escrever("Qual tipo de registro: [1:Pessoa Fisica | 2:Pessoa Juridica]");
+            string tipoRegistro = Ler();
             
             if(tipoRegistro == "1"){
                 AdicionarDot("Pessoa Fisica Selecionada!");
@@ -160,20 +175,24 @@ namespace senaiCadastro
         }
         private void InserirPessoaJuridica()
         {
-            Console.Write("Informe o CNPJ: ");
-            string cnpj = Console.ReadLine();
-            ValidarCNPJ(cnpj);
+            Limpar();
+            var pessoaJuridica = new PessoaJuridica();
 
-            Console.WriteLine("Informe a Razão Social: ");
-            string razaoSocial = Console.ReadLine();
+            Escrever("Informe o CNPJ: ");
+            pessoaJuridica.Cnpj = Ler();
+            ValidarCNPJ(pessoaJuridica.Cnpj);
 
-            pessoas.Add(new PessoaJuridica(cnpj, razaoSocial));
+            Escrever("Informe a Razão Social: ");
+            pessoaJuridica.RazaoSocial = Ler();
+
+            pessoas.Add(pessoaJuridica);
             AdicionarDot("Pessoa registrada com sucesso!");
-            Console.WriteLine();
+            Limpar();
+
+            MenuInserirPessoa();
         }
         private void InserirPessoaFisica()
         {
-
             Limpar();
             var pessoaFisica = new PessoaFisica();
 
@@ -192,14 +211,113 @@ namespace senaiCadastro
             pessoas.Add(pessoaFisica);
             AdicionarDot("Pessoa registrada com sucesso!");
             Limpar();
+
+            MenuInserirPessoa();
             
+            /* To tentando mais né...
+            Console.Write("Informe a data de nascimento: ");
+            DateTime dataNascimento = DateTime.Parse(Console.ReadLine());
+            */
+        }
+
+        private void InserirEndereco()
+        {
+            Limpar();
+            var endereco = new Endereco();
+
+            Escrever("Qual tipo de residência: [1:Residencial | 2:Comercial]");
+            TipoEndereco tipoEndereco = Enum.Parse<TipoEndereco>(Console.ReadLine()); 
+
+            Escrever("Informe o logradouro: ");
+            endereco.Logradouro = Ler();
+
+            Escrever("Informe o numero: ");
+            endereco.Numero = int.Parse(Ler());
+
+            Escrever("Informe o complemento: ");
+            endereco.Complemento = Ler();
+
+            enderecos.Add(endereco);
+            AdicionarDot("Endereço registrado com sucesso!");
+            Limpar();
+
+            MenuInserirEndereco();
+        }
+        private void MenuInserirEndereco()
+        {
+            Limpar();
+            AdicionarDot("-[1]Cadastrar outro endereço-");
+            AdicionarDot("---[2]Ver lista de endereço--");
+            AdicionarDot("-----------[3]Voltar---------");
+            string opcaoMenu = Ler();
+
+            EscolhaMenuEndereco(opcaoMenu);
+        }
+
+        private void MenuInserirPessoa()
+        {
+            Limpar();
             AdicionarDot("--[1]Cadastrar outra pessoa--");
             AdicionarDot("---[2]Ver lista de pessoas---");
             AdicionarDot("-----------[3]Voltar---------");
-            Escrever("");
+            string opcaoMenu = Ler();
 
-            string opcaoPessoaFisica = Ler().ToUpper();
-            switch(opcaoPessoaFisica)
+            EscolhaMenuPessoa(opcaoMenu);
+        }
+
+        public void MenuMostrarPessoas(string escolhaMenu)
+        {
+            string i = escolhaMenu;
+            switch(escolhaMenu)
+            {
+                case"1":
+                    ExcluirPessoa();
+                    break;
+                case"2":
+                    Executar();
+                    break;
+        
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void MenuMostrarEnderecos(string escolhaMenu)
+        {
+            string i = escolhaMenu;
+            switch(i)
+            {
+                case"1":
+                    ExcluirPessoa();
+                    break;
+                case"2":
+                    Executar();
+                    break;
+        
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        public void EscolhaMenuEndereco(string escolhaMenu)
+        {
+            string i = escolhaMenu;
+            switch(i)
+            {
+                case"1":
+                    InserirEndereco();
+                    break;
+                case"2":
+                    ListarEnderecos();
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        public void EscolhaMenuPessoa(string escolhaMenu)
+        {
+            string i = escolhaMenu;
+            switch(i)
             {
                 case"1":
                     InserirPessoa();
@@ -207,43 +325,19 @@ namespace senaiCadastro
                 case"2":
                     ListarPessoas();
                     break;
-                case"3":
-                    Executar();
-                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            /* To tentando mais né...
-            Console.Write("Informe a data de nascimento: ");
-            DateTime dataNascimento = DateTime.Parse(Console.ReadLine());
-            */
         }
-       /*
-        private static void InserirEndereco()
-        {
-            Console.WriteLine("Qual tipo de residência: [1:Residencial | 2:Comercial]");
-            TipoEndereco tipoEndereco = Enum.Parse<TipoEndereco>(Console.ReadLine()); 
-
-            Console.Write("Informe o logradouro: ");
-            string logradouro = Console.ReadLine();
-
-            Console.Write("Informe o numero: ");
-            int numero = int.Parse(Console.ReadLine());
-
-            Console.Write("Informe o complemento: ");
-            string complemento = Console.ReadLine();
-
-            enderecos.Add(new Endereco(logradouro, numero, complemento, tipoEndereco));
-            AdicionarDot("Endereço registrado com sucesso!");
-            Console.WriteLine();
-        }
-        */
+        
 
         //Deletar
         public void ExcluirPessoa()
         {
+            Limpar(); 
             Pessoa pessoa = new Pessoa();
+            MostrarPessoas();
             Escrever("Digite o nome da pessoa: ");
             var nome = Ler();
             pessoa = PesquisarPessoa(nome);
@@ -271,7 +365,7 @@ namespace senaiCadastro
         }
 
         public void ValidarCNPJ(string cnpj){
-            if(cnpj.Length == 14 && cnpj.Substring(cnpj.Length - 4) == "0001"){
+            if(cnpj.Length == 14){
                 return;
             }
             AdicionarDot("CNPJ INVALIDO");
@@ -280,6 +374,7 @@ namespace senaiCadastro
         //FUNÇÕES
         private string ObterOpcaoUsuario()
         {
+            Limpar();
             AdicionarDot("Bem Vindo ao nosso sistema de cadastro.");
             AdicionarDot("Escolha uma das opções abaixo.");
             Console.WriteLine();
