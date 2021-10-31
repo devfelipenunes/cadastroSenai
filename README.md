@@ -13,8 +13,8 @@
 - [x] ENCONTRO REMOTO 3 
 - [x] ENCONTRO REMOTO 4 
 - [x] ENCONTRO REMOTO 5
-- [] ENCONTRO REMOTO 6 
-- [] ENCONTRO REMOTO 7 
+- [ ] ENCONTRO REMOTO 6 
+- [ ] ENCONTRO REMOTO 7 
 
 
 ## Atualizações (Um pouco sobre o projeto)
