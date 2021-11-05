@@ -46,8 +46,8 @@ namespace senaiCadastro
         //Listas:
         private void Listar()
         {
-            Escrever($"1 - Listar pessoas");
-            Escrever($"2 - Listar endereços");
+            Escrever($"1 - Listar Pessoas");
+            Escrever($"2 - Listar Endereços");
             string escolhaInserir = Ler();
             if(escolhaInserir == "1")
             {
@@ -109,15 +109,20 @@ namespace senaiCadastro
         }
         public void MostrarPessoas()
         {
+            MostrarListaPessoas();
+            
+            string escolhaMenu = Ler();
+            MenuMostrarPessoas(escolhaMenu);
+        }
+
+        public void MostrarListaPessoas()
+        {
             int i = 0;
             foreach(Pessoa pessoa in pessoas)
             {
                 Console.WriteLine($"|Id: {i} | " + pessoa);
                 i++;
             }
-            
-            string escolhaMenu = Ler();
-            MenuMostrarPessoas(escolhaMenu);
         }
 
         public void MostrarEnderecos()
@@ -219,7 +224,13 @@ namespace senaiCadastro
             DateTime dataNascimento = DateTime.Parse(Console.ReadLine());
             */
         }
-
+        public void InserirEnderecoPessoa(string escolha)
+        {
+            if(escolha == "s")
+            {
+                InserirEndereco();
+            }            
+        }
         private void InserirEndereco()
         {
             Limpar();
@@ -309,6 +320,9 @@ namespace senaiCadastro
                 case"2":
                     ListarEnderecos();
                     break;
+                case"3":
+                    Executar();
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -325,6 +339,9 @@ namespace senaiCadastro
                 case"2":
                     ListarPessoas();
                     break;
+                case"3":
+                    Executar();
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -337,7 +354,7 @@ namespace senaiCadastro
         {
             Limpar(); 
             Pessoa pessoa = new Pessoa();
-            MostrarPessoas();
+            MostrarListaPessoas();
             Escrever("Digite o nome da pessoa: ");
             var nome = Ler();
             pessoa = PesquisarPessoa(nome);

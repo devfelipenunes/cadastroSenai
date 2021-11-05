@@ -19,9 +19,30 @@ namespace senai_cadastro
             } else {
                 return false;
             }
-
-
         }
+
+        public void PagarImposto(double rendimento)
+        {
+            double resultado;
+
+            if(rendimento <= 1500)
+            {
+            resultado = 0;
+            } else if (rendimento > 1500 && rendimento <= 5000)
+            {
+                resultado =  rendimento * .03;
+            }else{
+                resultado =  (rendimento/100) * 5;
+            }
+        }
+
+        /*
+        public static void AddPessoa()
+        {
+            string addPessoaQuery = "Insira os dados da Pessoa Fisica (Nome | Idade | CPF ) "               
+                                    ;
+        }
+        */
 
         public override string ToString()
         {
