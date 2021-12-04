@@ -13,6 +13,7 @@ namespace senaiCadastro
         public static List<Pessoa> pessoas = new List<Pessoa>();
         public static List<Endereco> enderecos = new List<Endereco>();
 
+
         public void Executar()
         {
             string opcaoUsuario = ObterOpcaoUsuario();
@@ -30,6 +31,11 @@ namespace senaiCadastro
                     case"3":
                         ExcluirPessoa();
                         break;
+                    case"4":
+                        //Teste();
+                        string fileName = @"./DataBase/Pessoas.txt";
+                        ExportarInformacoes(fileName);
+                        break;
 
                     case"C":
                         Console.Clear();
@@ -43,6 +49,38 @@ namespace senaiCadastro
             AdicionarDot("Sessão finalizada");
             Console.ReadLine();
         }
+
+        public void ExportarInformacoes(string fname)
+        {
+            string fileName = fname;
+            try
+            {
+                using (FileStream fs = File.Create(fileName))
+                foreach (PessoaFisica p in pessoas)
+                {
+                    Escrever(p.GetDados());
+                    byte[] info = new UTF8Encoding(true).GetBytes(p.GetDados());
+                    fs.Write(info, 0, info.Length);
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+            SeguraTela();
+        }
+
+        // public void Teste()
+        // {
+        //     Escrever("Digite um nome");
+        //     string nome = Ler();
+        //     StreamWriter sw = new StreamWriter($"{nome}.txt");
+        //     sw.Write($"{nome}");
+        //     sw.Close();
+        // }
+
+
+
         //Listas:
         private void Listar()
         {
@@ -346,9 +384,7 @@ namespace senaiCadastro
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-        
-
+        }      
         //Deletar
         public void ExcluirPessoa()
         {

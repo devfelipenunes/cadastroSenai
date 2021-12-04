@@ -11,15 +11,15 @@ namespace senaiCadastro
 
         public void Escrever(string msg)
         {
-            Console.WriteLine(msg);
+            Console.Write(msg);
         }
-    
+
         public void Limpar()
         {
             Console.Clear();
         }
 
-        public void SegurarTela()
+        public void SeguraTela()
         {
             Console.ReadKey();
         }

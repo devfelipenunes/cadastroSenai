@@ -44,7 +44,7 @@ namespace senai_cadastro
         }
         */
 
-        public override string ToString()
+        public string GetDados()
         {
             return $"Nome: {Nome} " +
                    $"|CPF: {Cpf} " +

@@ -1,3 +1,6 @@
+using System.IO;
+using System.Collections.Generic;
+
 namespace senai_cadastro
 {
     public class PessoaJuridica : Pessoa
@@ -5,6 +8,8 @@ namespace senai_cadastro
         public string Cnpj { get; set; }
         public string RazaoSocial { get; set; }
         public PessoaJuridica(){}
+
+        public string caminho { get; private set; } = "DataBase/PessoaJuridica.csv";
     
         /*
         public override double PagarImposto(float rendimento)
@@ -32,5 +37,31 @@ namespace senai_cadastro
             return false;
         }
         */
+        public string PrepararLinhasCsv(PessoaJuridica pj)
+        {
+            return $"{pj.Cnpj};{pj.Nome};{pj.RazaoSocial}";
+        }
+
+        public void Inserir(PessoaJuridica pj)
+        {
+            string[] linhas = {PrepararLinhasCsv(pj)};
+            File.AppendAllLines(caminho, linhas);
+        }
+
+        public List<PessoaJuridica> Ler()
+        {
+            List<PessoaJuridica> listaPj = new List<PessoaJuridica>();
+            string[] linhas = File.ReadAllLines(caminho);
+            foreach(var cadaLinha in linhas)
+            {
+                string[] atributos = cadaLinha.Split(";");
+                PessoaJuridica cadaPj = new PessoaJuridica();
+                cadaPj.Cnpj = atributos[0];
+                cadaPj.Nome = atributos[1];
+                cadaPj.RazaoSocial = atributos[2];
+                listaPj.Add(cadaPj);
+            }
+            return listaPj;
+        }
     }
 }
